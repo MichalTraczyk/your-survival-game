@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88101d3faa871cb4eae7af368a5be6ad, type: 3}
+  m_Name: BroadSword
+  m_EditorClassIdentifier: 
+  weaponType: 1
+  baseDamage: 60
+  mesh: {fileID: 100004, guid: d096c2dbc4ba8b344a7752253f0049ad, type: 3}
+  hitEnemyParticles: {fileID: 8157661924714768170, guid: 9e9b430ffb3dba34eb028403a1353a89, type: 3}
+  shotType: 0
+  RPM: 600
+  damageLossPer10Meters: 10
+  recoil: 0.02
+  bulletPrefab: {fileID: 6407988770432647089, guid: 1863bb4d748e0ed4a87a87d1c025a99d, type: 3}
+  maxBullets: 0
+  bulletsInMagazine: 0
+  reloadTime: 2
+  shotClip: {fileID: 8300000, guid: 96ae51448261ec6448dfb17e5c117108, type: 3}
+  swordClips:
+  - {fileID: 8300000, guid: 96ae51448261ec6448dfb17e5c117108, type: 3}
+  - {fileID: 8300000, guid: e76400c7fc9368c4bab46983289fdabd, type: 3}
+  - {fileID: 8300000, guid: 7c84add892b4e4142b39cdf62b8926f7, type: 3}
+  swordClips_hit:
+  - {fileID: 8300000, guid: 458c89a70c1ab0f4f8fd741201fb7734, type: 3}
+  - {fileID: 8300000, guid: da26074d3640ab443aee5a70483da3de, type: 3}

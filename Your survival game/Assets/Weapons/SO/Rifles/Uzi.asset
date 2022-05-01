@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88101d3faa871cb4eae7af368a5be6ad, type: 3}
+  m_Name: Uzi
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  baseDamage: 20
+  mesh: {fileID: 2418160424656224494, guid: 73b36c2828fde874e80d4e460467daa3, type: 3}
+  hitEnemyParticles: {fileID: 8157661924714768170, guid: 9e9b430ffb3dba34eb028403a1353a89, type: 3}
+  shotType: 0
+  RPM: 800
+  damageLossPer10Meters: 4
+  recoil: 0.7
+  bulletPrefab: {fileID: 6407988770432647089, guid: 1863bb4d748e0ed4a87a87d1c025a99d, type: 3}
+  isShoutgun: 0
+  maxBullets: 150
+  bulletsInMagazine: 25
+  reloadTime: 2
+  shotClip: {fileID: 8300000, guid: 2a177f7f6760bdd4cb830dc67ce6e7a2, type: 3}
+  swordClips: []
+  swordClips_hit: []

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88101d3faa871cb4eae7af368a5be6ad, type: 3}
+  m_Name: M4A4
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  baseDamage: 30
+  mesh: {fileID: 1382826331846722882, guid: 97e7538b8e7019c40a7a70faca3dc86a, type: 3}
+  hitEnemyParticles: {fileID: 8157661924714768170, guid: 9e9b430ffb3dba34eb028403a1353a89, type: 3}
+  shotType: 0
+  RPM: 600
+  damageLossPer10Meters: 1
+  recoil: 0.3
+  bulletPrefab: {fileID: 6407988770432647089, guid: 1863bb4d748e0ed4a87a87d1c025a99d, type: 3}
+  maxBullets: 150
+  bulletsInMagazine: 30
+  reloadTime: 2
+  shotClip: {fileID: 8300000, guid: b872537c70f6f20498c75487c3ed0929, type: 3}
