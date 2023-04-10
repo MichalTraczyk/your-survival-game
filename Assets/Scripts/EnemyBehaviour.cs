@@ -3,25 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum ZombieState
+{
+    Agonizing,
+    Wandering,
+    Running,
+    Attacking
+}
 public class EnemyBehaviour : MonoBehaviour
 {
     //Asignables
-    [SerializeField]
-    public EnemyBehaviourSO behaviour;
+    [SerializeField] EnemyBehaviourSO behaviour;
     NavMeshAgent controller;
     Animator animator;
 
-    Transform player;
-    Transform target;
-    bool trigered;
-    bool attacking;
-    bool dead;
-    bool canAttack = true;
-    bool onRagdoll;
-    float targetUpdateTime;
-    float targetUpdateCurrentTime;
-    bool visible;
+    private Transform player;
+    private Transform target;
+    private bool trigered;
+    private bool attacking;
+    private bool dead;
+    private bool canAttack = true;
+    private bool onRagdoll;
+    private float targetUpdateTime;
+    private float targetUpdateCurrentTime;
+    private bool visible;
 
+
+    public ZombieState state { get; private set;}
     public ParticleSystem bloodPartcieles;
     public ParticleSystem ExplosionParticles;
     [SerializeField]
@@ -29,9 +37,21 @@ public class EnemyBehaviour : MonoBehaviour
     public Transform root;
 
 
-    public AudioClip[] ConstAudioClips;
-    public AudioSource constantAudio;
-    public AudioSource attackAudio;
+    [SerializeField] AudioClip[] ConstAudioClips;
+    [SerializeField] AudioSource constantAudio;
+    [SerializeField] AudioSource attackAudio;
+    private void Awake()
+    {
+        //Get components 
+        animator = GetComponent<Animator>();
+        controller = GetComponent<NavMeshAgent>();
+
+        //Setup base stats
+        behaviour = GameManager.Instance.getBehaviour();
+        GetComponent<Damagable>().Setup(GameManager.Instance.getHp(behaviour.baseHp));
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        controller.speed = behaviour.speed;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -46,38 +66,31 @@ public class EnemyBehaviour : MonoBehaviour
         constantAudio.volume = vol;
         attackAudio.volume = vol;
 
-        animator = GetComponent<Animator>();
-        controller = GetComponent<NavMeshAgent>();
         DisableRagdoll();
-        //Start settings
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        controller.speed = behaviour.speed;
-
-        behaviour = GameManager.Instance.getBehaviour();
-        GetComponent<Damagable>().Setup(GameManager.Instance.getHp(behaviour.baseHp));
-        //GetComponent<Damagable>().startHp = GameManager.Instance.getHp(behaviour.baseHp);
-       // GetComponent<Damagable>().currHp = GetComponent<Damagable>().startHp;
 
 
         float t = 3;
         if (behaviour.enemyBehaviour == Behaviour.Aggresive)
         {
-            target = GameObject.FindGameObjectWithTag("Player").transform;
+            target = player;
             Trigger();
         }
-        else if(behaviour.enemyBehaviour == Behaviour.Neutral)
+        else if (behaviour.enemyBehaviour == Behaviour.Neutral)
         {
-            InvokeRepeating("RandomChangeTarget",1,5f);
+            state = ZombieState.Wandering;
         }
         else
         {
+            state = ZombieState.Wandering;
             animator.SetBool("Agonal", true);
             t = 5;
         }
+
+
         StartCoroutine(disableMovement(t));
+
         if (behaviour.speedType == speedType.Runner)
             animator.SetBool("Runner", true);
-        StartCoroutine(updateTarget());
 
         RandomizeAnimations();
     }
@@ -116,6 +129,7 @@ public class EnemyBehaviour : MonoBehaviour
             targetUpdateTime = 2f;
             return;
         }
+
         if (distance < 10)
         {
             targetUpdateTime = 0.1f;
@@ -129,14 +143,15 @@ public class EnemyBehaviour : MonoBehaviour
             targetUpdateTime = 3f;
         }
     }
+
     public void Trigger()
     {
-        //animator.SetTrigger("Trigger");
+        state = ZombieState.Running;
         target = player;
         trigered = true;
         CancelInvoke();
     }
-
+    #region attacking
     IEnumerator disableAttack(float secs)
     {
         canAttack = false;
@@ -174,15 +189,33 @@ public class EnemyBehaviour : MonoBehaviour
             }
         }
     }
+
+    #endregion
     // Update is called once per frame
     void Update()
     {
         if (dead)
             return;
-        CheckPlayerDistance();
+
+        if(state == ZombieState.Running)
+        {
+            CheckPlayerDistance();
+            
+            if (target != null && controller.enabled && trigered && controller.isOnNavMesh && targetUpdateTime < targetUpdateCurrentTime)
+            {
+                controller.SetDestination(target.position);
+                targetUpdateCurrentTime = 0;
+            }
+            targetUpdateCurrentTime += Time.deltaTime;
+        }
+        else if(state == ZombieState.Wandering)
+        {
+
+            RandomChangeTarget();
+        }
         AnimatorUpdate();
-        targetUpdateCurrentTime += Time.deltaTime;
     }
+
 
     private void AnimatorUpdate()
     {
@@ -195,18 +228,6 @@ public class EnemyBehaviour : MonoBehaviour
         controller.enabled = true;
         animator.SetBool("SkipStart", true);
     }
-    IEnumerator updateTarget()
-    {
-        while(true)
-        {
-            if(target!= null && controller.enabled &&  trigered && controller.isOnNavMesh && targetUpdateTime < targetUpdateCurrentTime)
-            {
-                controller.SetDestination(target.position);
-                targetUpdateCurrentTime = 0;
-            }
-            yield return null;
-        }
-    }
     private void OnTriggerEnter(Collider other)
     {
         if(canAttack && other.CompareTag("Player") && !attacking)
@@ -218,6 +239,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (dead)
             return;
+
         Vector3 pos = root.position;
         root.localPosition = new Vector3(0.002f, 0.9f, -0.05f);
         root.localEulerAngles = new Vector3(0, -90, -90);
