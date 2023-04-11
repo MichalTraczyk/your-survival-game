@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5316b5c2f179bf646ba670309a074932, type: 3}
   m_Name: Normal2
   m_EditorClassIdentifier: 
-  distanceToTrigger: 40
+  distanceToTrigger: 10
   enemyBehaviour: 1
   damage: 1
-  speed: 0.7
-  speedType: 1
+  speed: 0.6
   distanceToAttack: 2
   baseHp: 10
+  animator: {fileID: 22100000, guid: 429fbfef20cee344ab74dfb54daddf4e, type: 2}

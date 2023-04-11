@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     int spawnedEnemies = 0;
     bool lost;
     bool paused;
-    public StarterAssetsInputs input;
+    //public StarterAssetsInputs input;
 
     private void Awake()
     {

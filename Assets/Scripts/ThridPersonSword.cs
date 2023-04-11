@@ -99,7 +99,7 @@ public class ThridPersonSword : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(attackSpherePos.position, sphereRadius);
         foreach (Collider c in colliders)
         {
-            Damagable d = c.GetComponent<Damagable>();
+            EnemyBehaviour d = c.GetComponent<EnemyBehaviour>();
             if (d != null)
             {
                 count++;

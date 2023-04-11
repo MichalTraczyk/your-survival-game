@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5316b5c2f179bf646ba670309a074932, type: 3}
   m_Name: Crawl
   m_EditorClassIdentifier: 
-  distanceToTrigger: 40
+  distanceToTrigger: 10
   enemyBehaviour: 2
   damage: 20
   speed: 0.3
-  speedType: 2
   distanceToAttack: 2
+  baseHp: 0
+  animator: {fileID: 22100000, guid: 429fbfef20cee344ab74dfb54daddf4e, type: 2}

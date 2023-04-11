@@ -23,6 +23,7 @@ public class Damagable : MonoBehaviour
         if (startHp != 0)
             Setup(startHp);
     }
+
     public void Setup(int start)
     {
         if (start != 0)
@@ -34,14 +35,17 @@ public class Damagable : MonoBehaviour
             hpSlider.value = currHp;
         }
     }
+
     public void Damage(int dmg,WeaponType weaponType = WeaponType.Rifle)
     {
         if(weaponType == WeaponType.Melee&& behaviour != null)
         {
             behaviour.OnSwordHit();
         }
+
         currHp -= dmg;
         onDamageEvent.Invoke(dmg);
+
         if (currHp <= 0)
         {
             onDieEvent.Invoke();

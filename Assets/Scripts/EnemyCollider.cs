@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCollider : MonoBehaviour
+public class EnemyCollider : MonoBehaviour, IDamagable
 {
     public float multiplier = 1;
-    Damagable parentScript;
+    EnemyBehaviour parentScript;
     private void Awake()
     {
-        parentScript = GetComponentInParent<Damagable>();
+        parentScript = GetComponentInParent<EnemyBehaviour>();
     }
     public void Damage(int dmg)
     {
         parentScript.Damage(Mathf.RoundToInt(dmg * multiplier));
+    }
+
+    public void Damage(int dmg, WeaponType weaponType = WeaponType.Rifle)
+    {
+        parentScript.Damage(Mathf.RoundToInt(dmg * multiplier),weaponType);
     }
 }

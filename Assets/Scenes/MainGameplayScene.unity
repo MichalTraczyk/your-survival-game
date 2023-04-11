@@ -18469,17 +18469,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3446543065833990998, guid: e5bedcb69937c6e44bbc01c308be0d41, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: adb67b6caa23e8045b66060014ea5eb3, type: 2}
     - target: {fileID: 6502942980138115329, guid: e5bedcb69937c6e44bbc01c308be0d41, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.49
       objectReference: {fileID: 0}
     - target: {fileID: 6502942980138115329, guid: e5bedcb69937c6e44bbc01c308be0d41, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6698393879338347254, guid: e5bedcb69937c6e44bbc01c308be0d41, type: 3}
       propertyPath: m_Name
       value: ZombiePrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698393879338347254, guid: e5bedcb69937c6e44bbc01c308be0d41, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7687117239380220133, guid: e5bedcb69937c6e44bbc01c308be0d41, type: 3}
       propertyPath: m_RootOrder
@@ -23179,7 +23187,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29916
+  m_Name: pb_Mesh21156
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -27913,7 +27921,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29582
+  m_Name: pb_Mesh20820
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

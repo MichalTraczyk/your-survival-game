@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5316b5c2f179bf646ba670309a074932, type: 3}
   m_Name: Angry
   m_EditorClassIdentifier: 
-  distanceToTrigger: 40
+  distanceToTrigger: 10
   enemyBehaviour: 1
   damage: 2
   speed: 2
-  speedType: 0
   distanceToAttack: 2
   baseHp: 50
+  animator: {fileID: 22100000, guid: 0a242e09e9463ce479e66dfbd046a7b5, type: 2}

@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     Vector3 startPos;
     public Transform spherePos;
 
+    private Rigidbody rb;
    // Vector3 targetPos;
     public GameObject hitWallParticles;
     public GameObject hitEnemyParticles;
@@ -19,12 +20,15 @@ public class Bullet : MonoBehaviour
         baseDamage = dmg;
         damageLoss = dmgLoss;
         startPos = startPosition;
+        rb = GetComponent<Rigidbody>();
         //targetPos = targetPosition;
     }
     private void Update()
     {
         bulletMove();
     }
+
+
     //when we collide with enemy
     private void OnTriggerEnter(Collider other)
     {
@@ -53,7 +57,8 @@ public class Bullet : MonoBehaviour
     }
     void bulletMove()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        rb.MovePosition(transform.position + transform.forward * speed * Time.deltaTime);
+        //transform.position += transform.forward * speed * Time.deltaTime;
     }
     int calculateDamage()
     {

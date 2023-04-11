@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5316b5c2f179bf646ba670309a074932, type: 3}
   m_Name: Peace
   m_EditorClassIdentifier: 
-  distanceToTrigger: 40
+  distanceToTrigger: 10
   enemyBehaviour: 2
   damage: 1
-  speed: 1
-  speedType: 1
+  speed: 0.6
   distanceToAttack: 2
   baseHp: -50
+  animator: {fileID: 22100000, guid: e1cd5f00ba0d6e54db20e59cb4afc63b, type: 2}

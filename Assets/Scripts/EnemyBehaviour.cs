@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public enum ZombieState
@@ -14,8 +15,9 @@ public class EnemyBehaviour : MonoBehaviour
 {
     //Asignables
     [SerializeField] EnemyBehaviourSO behaviour;
-    NavMeshAgent controller;
-    Animator animator;
+    private NavMeshAgent controller;
+    private Animator animator;
+
 
     private Transform player;
     private Transform target;
@@ -27,19 +29,25 @@ public class EnemyBehaviour : MonoBehaviour
     private float targetUpdateTime;
     private float targetUpdateCurrentTime;
     private bool visible;
+    private int currentHp;
+    //distance to player
+    private float distance;
 
 
+    [SerializeField] Slider hpSlider;
+    //Current zombie state - what is he doing
     public ZombieState state { get; private set;}
+    [Header("Particle systems")]
     public ParticleSystem bloodPartcieles;
     public ParticleSystem ExplosionParticles;
-    [SerializeField]
-    Transform forcePos;
+    [Header("Position from where ragdoll force is applied")]
+    [SerializeField] Transform forcePos;
     public Transform root;
 
-
-    [SerializeField] AudioClip[] ConstAudioClips;
-    [SerializeField] AudioSource constantAudio;
+    [Header("Audio clips")]
     [SerializeField] AudioSource attackAudio;
+
+
     private void Awake()
     {
         //Get components 
@@ -48,7 +56,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         //Setup base stats
         behaviour = GameManager.Instance.getBehaviour();
-        GetComponent<Damagable>().Setup(GameManager.Instance.getHp(behaviour.baseHp));
+        currentHp = GameManager.Instance.getHp(behaviour.baseHp);
         player = GameObject.FindGameObjectWithTag("Player").transform;
         controller.speed = behaviour.speed;
     }
@@ -56,20 +64,16 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
 
-        //int a = Random.Range(0, ConstAudioClips.Length);
-        //constantAudio.clip = ConstAudioClips[a];
-        //float pitch = Random.Range(0.7f, 1.3f);
-        //constantAudio.pitch = pitch;
-        //constantAudio.Play();
-
+        if (hpSlider != null)
+        {
+            hpSlider.maxValue = currentHp;
+            hpSlider.value = currentHp;
+        }
         float vol = SoundManager.Instance.currentVolume;
-        constantAudio.volume = vol;
         attackAudio.volume = vol;
-
         DisableRagdoll();
 
-
-        float t = 3;
+        animator.runtimeAnimatorController = behaviour.animator;
         if (behaviour.enemyBehaviour == Behaviour.Aggresive)
         {
             target = player;
@@ -81,32 +85,8 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
-            state = ZombieState.Wandering;
-            animator.SetBool("Agonal", true);
-            t = 5;
+            state = ZombieState.Agonizing;
         }
-
-
-        StartCoroutine(disableMovement(t));
-
-        if (behaviour.speedType == speedType.Runner)
-            animator.SetBool("Runner", true);
-
-        RandomizeAnimations();
-    }
-    void RandomizeAnimations()
-    {
-        //IDLE animation randomize
-        int r = Random.Range(0, 2);
-        animator.SetInteger("IDLERand",r);
-
-        //Walk animation randomize
-        r = Random.Range(0, 3);
-        animator.SetInteger("WalkRand", r);
-
-        r = Random.Range(0, 2);
-        animator.SetInteger("RunRand", r);
-
     }
     void RandomChangeTarget()
     {
@@ -118,18 +98,23 @@ public class EnemyBehaviour : MonoBehaviour
     }    
     void CheckPlayerDistance()
     {
-        if (target == null)
-            return;
         float distance = Vector3.Distance(transform.position, player.position);
+        
         if (!trigered && distance < behaviour.distanceToTrigger)
             Trigger();
+        
+        if (target == null)
+            return;
 
+        //if invicible dont update often
         if(!visible)
         {
             targetUpdateTime = 2f;
             return;
         }
 
+
+        //The closer zombie is more often update path to player
         if (distance < 10)
         {
             targetUpdateTime = 0.1f;
@@ -149,7 +134,6 @@ public class EnemyBehaviour : MonoBehaviour
         state = ZombieState.Running;
         target = player;
         trigered = true;
-        CancelInvoke();
     }
     #region attacking
     IEnumerator disableAttack(float secs)
@@ -160,9 +144,6 @@ public class EnemyBehaviour : MonoBehaviour
     }
     IEnumerator damagePlayer()
     {
-        //Play animation
-        int rat = Random.Range(0, 3);
-        animator.SetInteger("AttackType", rat);
 
         animator.SetTrigger("Attack");
         //Send sphere in forward
@@ -197,22 +178,25 @@ public class EnemyBehaviour : MonoBehaviour
         if (dead)
             return;
 
+        CheckPlayerDistance();
         if(state == ZombieState.Running)
         {
-            CheckPlayerDistance();
             
             if (target != null && controller.enabled && trigered && controller.isOnNavMesh && targetUpdateTime < targetUpdateCurrentTime)
             {
                 controller.SetDestination(target.position);
                 targetUpdateCurrentTime = 0;
             }
-            targetUpdateCurrentTime += Time.deltaTime;
         }
         else if(state == ZombieState.Wandering)
         {
-
-            RandomChangeTarget();
+            if(targetUpdateCurrentTime > 5)
+            {
+                RandomChangeTarget();
+                targetUpdateCurrentTime = 0;
+            }
         }
+        targetUpdateCurrentTime += Time.deltaTime;
         AnimatorUpdate();
     }
 
@@ -226,7 +210,6 @@ public class EnemyBehaviour : MonoBehaviour
         controller.enabled = false;
         yield return new WaitForSeconds(time);
         controller.enabled = true;
-        animator.SetBool("SkipStart", true);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -234,6 +217,32 @@ public class EnemyBehaviour : MonoBehaviour
         {
             StartCoroutine(damagePlayer());
         }
+    }
+    public void OnSwordHit()
+    {
+        disableAttack(3);
+        StartCoroutine(RagdollOnHit());
+    }
+    public void DieOnBarrel(Vector3 barrelPos)
+    {
+        if (dead)
+            return;
+
+        Die(false);
+        EnableRagdoll(barrelPos, true, 50000,true);
+    }
+
+
+
+
+
+    IEnumerator RagdollOnHit()
+    {
+        EnableRagdoll(forcePos.position,true);
+
+        yield return new WaitForSeconds(2);
+
+        DisableRagdoll();
     }
     void DisableRagdoll()
     {
@@ -276,19 +285,9 @@ public class EnemyBehaviour : MonoBehaviour
             rbs[1].AddExplosionForce(force, forcePos.position, 5);
         }
     }
-    public void OnSwordHit()
-    {
-        disableAttack(3);
-        StartCoroutine(RagdollOnHit());
-    }
-    IEnumerator RagdollOnHit()
-    {
-        EnableRagdoll(forcePos.position,true);
 
-        yield return new WaitForSeconds(2);
 
-        DisableRagdoll();
-    }
+
     IEnumerator DestroyOnDie()
     {
         yield return new WaitForSeconds(4);
@@ -301,13 +300,6 @@ public class EnemyBehaviour : MonoBehaviour
             ExplosionParticles.Play();
         }
         Destroy(this.gameObject);
-    }
-    public void DieOnBarrel(Vector3 barrelPos)
-    {
-        if (dead)
-            return;
-        Die(false);
-        EnableRagdoll(barrelPos, true, 50000,true);
     }
     public void Die(bool playAnimation = true)
     {
@@ -329,13 +321,32 @@ public class EnemyBehaviour : MonoBehaviour
                 animator.SetTrigger("Die");
             }
         }
-        Destroy(GetComponent<Damagable>());
         EnemyCollider[] ec = GetComponentsInChildren<EnemyCollider>();
         foreach(EnemyCollider e in ec)
         {
             Destroy(e);
         }
     }
+    public void Damage(int dmg, WeaponType weaponType = WeaponType.Rifle)
+    {
+        if (weaponType == WeaponType.Melee)
+        {
+            OnSwordHit();
+        }
+        if (!trigered)
+            Trigger();
+
+        currentHp -= dmg;
+
+        if (currentHp <= 0)
+        {
+            Die();
+        }
+        if (hpSlider != null)
+            hpSlider.value = currentHp;
+
+    }
+
     private void OnBecameVisible()
     {
         visible = true;
@@ -352,5 +363,8 @@ public class EnemyBehaviour : MonoBehaviour
             animator.enabled = false;
         }
     }
+
+
+
 
 }
