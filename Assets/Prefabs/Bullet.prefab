@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23396fab8e423314096b35124cd71398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speed: 200
   spherePos: {fileID: 1568757518903144891}
   hitWallParticles: {fileID: 8157661924714768170, guid: 7e12ba044f34c08419a5b0a45c87c8a3, type: 3}
   hitEnemyParticles: {fileID: 0}

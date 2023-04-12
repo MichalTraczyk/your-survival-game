@@ -1860,15 +1860,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: {fileID: 11400000, guid: f1c12e741d9350b41b8c841f393d7b87, type: 2}
+  hpSlider: {fileID: 6502942980781476195}
   bloodPartcieles: {fileID: 7804832855403977299}
   ExplosionParticles: {fileID: 2713234355572126797}
   forcePos: {fileID: 5138288070664945449}
   root: {fileID: 5214168037002371166}
-  ConstAudioClips:
-  - {fileID: 8300000, guid: 53799bd781b9f7542a33713cd3b067c2, type: 3}
-  - {fileID: 8300000, guid: 5f12c5b69780518448849d841bf1f051, type: 3}
-  - {fileID: 8300000, guid: efc11dab391d7f9499be2a071758ad0c, type: 3}
-  constantAudio: {fileID: 2153890229377163887}
   attackAudio: {fileID: 352464648208273888}
 --- !u!195 &5138288070201135448
 NavMeshAgent:
