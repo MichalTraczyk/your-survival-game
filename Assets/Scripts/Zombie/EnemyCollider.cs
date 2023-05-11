@@ -10,11 +10,6 @@ public class EnemyCollider : MonoBehaviour, IDamagable
     {
         parentScript = GetComponentInParent<EnemyBehaviour>();
     }
-    public void Damage(int dmg)
-    {
-        parentScript.Damage(Mathf.RoundToInt(dmg * multiplier));
-    }
-
     public void Damage(int dmg, WeaponType weaponType = WeaponType.Rifle)
     {
         parentScript.Damage(Mathf.RoundToInt(dmg * multiplier),weaponType);

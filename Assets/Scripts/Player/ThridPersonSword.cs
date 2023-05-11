@@ -8,14 +8,13 @@ public class ThridPersonSword : MonoBehaviour
     private StarterAssetsInputs input;
     private Animator animator;
     private ThirdPersonController controller;
-    public PlayerRotateMesh rotator;
+    private PlayerRotateMesh rotator;
 
     public Transform attackSpherePos;
     public float sphereRadius;
-    bool damaged;
+    private bool attack;
 
-    bool attack;
-    public AudioSource attackAudio;
+    [SerializeField] private AudioSource attackAudio;
     private void Start()
     {
         input = GetComponent<StarterAssetsInputs>();

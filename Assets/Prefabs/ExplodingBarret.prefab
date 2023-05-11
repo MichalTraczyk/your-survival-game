@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6371836280495604454}
   - component: {fileID: 6371836280495604455}
   - component: {fileID: 6371836280495604448}
-  - component: {fileID: 6371836280495604449}
   - component: {fileID: 6346066909444021033}
   m_Layer: 0
   m_Name: ExplodingBarret
@@ -112,39 +111,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 4
   particles: {fileID: 8227303147219946497, guid: d0132054a413ca046920e834bd36657b, type: 3}
---- !u!114 &6371836280495604449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6371836280495604450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20e665766c185864999f6e0a5305e257, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDieEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6371836280495604448}
-        m_TargetAssemblyTypeName: ExplosionBarrel, Assembly-CSharp
-        m_MethodName: Explode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  hpSlider: {fileID: 0}
-  startHp: 20
-  currHp: 0
 --- !u!114 &6346066909444021033
 MonoBehaviour:
   m_ObjectHideFlags: 0

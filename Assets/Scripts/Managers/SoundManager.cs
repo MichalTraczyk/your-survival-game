@@ -13,11 +13,14 @@ public class Sound
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
-    public float currentVolume;
-    public AudioSource[] zombiesAudio;
-    int currZombiesAudioCount = 0;
 
-    public Sound[] sounds;
+
+    public float currentVolume { get; private set; }
+
+    private int currZombiesAudioCount = 0;
+
+    [SerializeField] private AudioSource[] zombiesAudio;
+    [SerializeField] private Sound[] sounds;
     private void Awake()
     {
         if (Instance == null)

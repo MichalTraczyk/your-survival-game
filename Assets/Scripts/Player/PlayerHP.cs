@@ -4,10 +4,10 @@ using UnityEngine;
 using StarterAssets;
 public class PlayerHP : MonoBehaviour
 {
-    Animator animator;
-    public Transform root;
-    public Transform lookAtCam;
-    public MonoBehaviour[] scriptsToDisable;
+    private Animator animator;
+    [SerializeField] private Transform root;
+    [SerializeField] private Transform lookAtCam;
+    [SerializeField] private MonoBehaviour[] scriptsToDisableOnRagdoll;
     public void Damage(int dmg)
     {
         GameManager.Instance.Damage(dmg);
@@ -24,7 +24,7 @@ public class PlayerHP : MonoBehaviour
     }
     public void EnableRagdoll()
     {
-        foreach(MonoBehaviour b in scriptsToDisable)
+        foreach(MonoBehaviour b in scriptsToDisableOnRagdoll)
         {
             Destroy(b);
         }

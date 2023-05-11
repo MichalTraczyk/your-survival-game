@@ -37,7 +37,6 @@ public class SkinPicker : MonoBehaviour
     void UpdateSkin()
     {
         EnableSkin(currSkinIndex);
-        Debug.Log("owo");
         Skin s = allSkins[currSkinIndex];
         if(s.targetWaves <= PlayerPrefs.GetInt("Highscore"))
         {

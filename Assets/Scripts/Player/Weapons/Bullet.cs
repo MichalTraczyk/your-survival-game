@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 10;
-    int baseDamage;
-    float damageLoss;
-    Vector3 startPos;
-    public Transform spherePos;
+    [SerializeField] private float speed = 10;
+    [SerializeField] private Transform spherePos;
+
+    private int baseDamage;
+    private float damageLoss;
+    private Vector3 startPos;
 
     private Rigidbody rb;
-   // Vector3 targetPos;
-    public GameObject hitWallParticles;
-    public GameObject hitEnemyParticles;
-    public LayerMask enemyLayers;
+
+    // Vector3 targetPos;
+    [SerializeField] private GameObject hitWallParticles;
+    [SerializeField] public GameObject hitEnemyParticles;
+    [SerializeField] private LayerMask enemyLayers;
     public void Setup(int dmg,float dmgLoss,Vector3 startPosition)
     {
         baseDamage = dmg;
@@ -27,26 +29,16 @@ public class Bullet : MonoBehaviour
     {
         bulletMove();
     }
-
-
     //when we collide with enemy
     private void OnTriggerEnter(Collider other)
     {
         GameObject particles = hitWallParticles;
-        Damagable damagable = other.gameObject.GetComponent<Damagable>();
-        EnemyCollider ec = other.gameObject.GetComponent<EnemyCollider>();
+        IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
         Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
         if (rb != null)
             rb.AddExplosionForce(600, transform.position, 0.3f);
 
-
-        if (ec != null)
-        {
-            particles = hitEnemyParticles;
-            ec.Damage(calculateDamage());
-        }
-
-        else if (damagable != null)
+        if (damagable != null)
         {
             damagable.Damage(calculateDamage());
             particles = hitEnemyParticles;

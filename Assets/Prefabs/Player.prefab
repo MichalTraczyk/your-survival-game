@@ -83,12 +83,12 @@ MonoBehaviour:
     m_Target: {fileID: 914538037}
     m_Hint: {fileID: 1033900107}
     m_TargetPositionWeight: 1
-    m_TargetRotationWeight: 1
+    m_TargetRotationWeight: 0
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
   m_SourceObjectsGUIToggle: 0
-  m_SettingsGUIToggle: 0
+  m_SettingsGUIToggle: 1
 --- !u!1 &711216813
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 0
+  m_Weight: 1
   m_Effectors: []
 --- !u!1 &914538036
 GameObject:
@@ -189,7 +189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1033900106}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.5143, y: 0.4929, z: 0.3138}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 601600227}
@@ -306,13 +306,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312130079}
-  m_LocalRotation: {x: -0.43045935, y: -0.56098557, z: 0.5609864, w: 0.43045816}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0.1066, y: 0.0363, z: -0.019}
   m_LocalScale: {x: 1.396, y: 1.396, z: 1.396}
   m_Children: []
   m_Father: {fileID: 8474813746839900191}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 15, y: -90, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
 --- !u!1 &1380370536
 GameObject:
   m_ObjectHideFlags: 0
@@ -4414,20 +4414,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalCamera: {fileID: 0}
   aimCamera: {fileID: 0}
-  normalSensitivity: 1
-  aimSensitivity: 0.6
   mesh: {fileID: 8467534959797275249}
-  cam: {fileID: 0}
   mouseLayers:
     serializedVersion: 2
     m_Bits: 1207
-  lerpSpeed: 20
-  shotTime: 0
+  normalSensitivity: 1
+  aimSensitivity: 0.6
   firePos: {fileID: 0}
   w: {fileID: 11400000, guid: 31bf93585920b9a41bb11b7b5299dff8, type: 2}
-  aimRig: {fileID: 1656399094}
+  lerpSpeed: 20
   SpineTargetPos: {fileID: 1789034349}
-  HandTargetPos: {fileID: 303288813}
+  RightHandPos: {fileID: 303288813}
+  LeftHandTargetPos: {fileID: 914538037}
+  aimRig: {fileID: 1656399094}
+  LeftHandRig: {fileID: 711216814}
   shotSource: {fileID: 8472322939304323480}
 --- !u!114 &845150401879583659
 MonoBehaviour:
@@ -4441,19 +4441,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aec3af86f24de34c9d05c38703a6cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon:
-    weapon: {fileID: 0}
+  allWeapons:
+  - weapon: {fileID: 11400000, guid: d2987c9d159b0294299a728f91513895, type: 2}
     mesh: {fileID: 0}
     ammoInMagazine: 0
     ammoOffMagazine: 0
-  allWeapons: []
+  - weapon: {fileID: 11400000, guid: 31bf93585920b9a41bb11b7b5299dff8, type: 2}
+    mesh: {fileID: 0}
+    ammoInMagazine: 0
+    ammoOffMagazine: 0
+  - weapon: {fileID: 11400000, guid: b98657fb4adb8174f9b0fa7cf63eaffe, type: 2}
+    mesh: {fileID: 0}
+    ammoInMagazine: 0
+    ammoOffMagazine: 0
+  - weapon: {fileID: 11400000, guid: 1679a1531d29480499631b870e4e40cf, type: 2}
+    mesh: {fileID: 0}
+    ammoInMagazine: 0
+    ammoOffMagazine: 0
+  - weapon: {fileID: 11400000, guid: 42af0b88449742940a75bce6f4208788, type: 2}
+    mesh: {fileID: 0}
+    ammoInMagazine: 0
+    ammoOffMagazine: 0
   startWeapons:
   - weapon: {fileID: 11400000, guid: 31bf93585920b9a41bb11b7b5299dff8, type: 2}
     mesh: {fileID: 0}
     ammoInMagazine: 0
     ammoOffMagazine: 0
   weaponPos: {fileID: 1312130080}
-  wp: {fileID: 0}
 --- !u!114 &287372769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4554,7 +4568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e75a8ae00f1a6c479520f6939307fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotator: {fileID: 1193026199}
   attackSpherePos: {fileID: 1380370537}
   sphereRadius: 1
   attackAudio: {fileID: 8472322939304323480}
@@ -4572,11 +4585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 8474982603804386815}
   lookAtCam: {fileID: 3521590844142058399}
-  scriptsToDisable:
-  - {fileID: 1193026198}
-  - {fileID: 845150401879583659}
-  - {fileID: 820797039}
-  - {fileID: 845150401879583658}
+  scriptsToDisableOnRagdoll: []
 --- !u!114 &1193026199
 MonoBehaviour:
   m_ObjectHideFlags: 0

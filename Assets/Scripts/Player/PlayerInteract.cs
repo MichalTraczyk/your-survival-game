@@ -5,9 +5,10 @@ using StarterAssets;
 public class PlayerInteract : MonoBehaviour
 {
 
-    StarterAssetsInputs input;
-    public LayerMask layers;
-    Interactable currInteract;
+    [SerializeField] private LayerMask layers;
+
+    private StarterAssetsInputs input;
+    private Interactable currInteract;
     private void Start()
     {
         input = GetComponent<StarterAssetsInputs>();

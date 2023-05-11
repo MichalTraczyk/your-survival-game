@@ -13,20 +13,20 @@ public class WeaponInEq
 public class PlayerWeaponHandle : MonoBehaviour
 {
     //read variavbl
-    public WeaponInEq currentWeapon;
+    public WeaponInEq currentWeapon { get; private set; }
 
-    public List<WeaponInEq> allWeapons = new List<WeaponInEq>();
-    public List<WeaponInEq> startWeapons = new List<WeaponInEq>();
-    public Transform weaponPos;
+    [SerializeField] private List<WeaponInEq> allWeapons = new List<WeaponInEq>();
+    [SerializeField] private List<WeaponInEq> startWeapons = new List<WeaponInEq>();
+    [SerializeField] private Transform weaponPos;
 
-    public WeaponPosition wp;
+    public WeaponPosition wp { get; private set; }
 
-    StarterAssetsInputs input;
-    ThirdPersonShooting shotScript;
-    ThridPersonSword swordScript;
-    Animator animator;
+    private StarterAssetsInputs input;
+    private ThirdPersonShooting shotScript;
+    private ThridPersonSword swordScript;
+    private Animator animator;
 
-    int currWeaponIndex = 0;
+    private int currWeaponIndex = 0;
 
     private void Start()
     {
@@ -78,6 +78,7 @@ public class PlayerWeaponHandle : MonoBehaviour
     }
     void SpawnNewWeapon()
     {
+        Debug.Log("Spawning: " + currentWeapon.weapon.mesh.name);
         GameObject go = Instantiate(currentWeapon.weapon.mesh, weaponPos);
         go.transform.localPosition = Vector3.zero;
         go.transform.localRotation = Quaternion.identity;

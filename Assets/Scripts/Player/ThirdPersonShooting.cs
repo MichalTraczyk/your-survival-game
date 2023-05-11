@@ -7,18 +7,18 @@ using StarterAssets;
 public class ThirdPersonShooting : MonoBehaviour
 {
     [Header("Assignables")]
-    public CinemachineVirtualCamera normalCamera;
-    public CinemachineVirtualCamera aimCamera;
+    [SerializeField] private CinemachineVirtualCamera normalCamera;
+    [SerializeField] private CinemachineVirtualCamera aimCamera;
 
-    public Transform mesh;
+    [SerializeField] private Transform mesh;
     private Transform cam;
 
-    public LayerMask mouseLayers;
+    [SerializeField] private LayerMask mouseLayers;
 
 
     [Header("Options")]
-    public float normalSensitivity = 1;
-    public float aimSensitivity = 0.6f;
+    [SerializeField] private float normalSensitivity = 1;
+    [SerializeField] private float aimSensitivity = 0.6f;
 
 
     private float shotTime;
@@ -33,16 +33,15 @@ public class ThirdPersonShooting : MonoBehaviour
     bool reloading;
     Vector3 mouseWorldPos;
 
-
     [Header("IK")]
-    public float lerpSpeed = 20;
+    [SerializeField] private float lerpSpeed = 20;
 
-    public Transform SpineTargetPos;
-    public Transform RightHandPos;
-    public Transform LeftHandTargetPos;
+    [SerializeField] private Transform SpineTargetPos;
+    [SerializeField] private Transform RightHandPos;
+    [SerializeField] private Transform LeftHandTargetPos;
 
-    public Rig aimRig;
-    public Rig LeftHandRig;
+    [SerializeField] private Rig aimRig;
+    [SerializeField] private Rig LeftHandRig;
 
 
     //references
@@ -270,7 +269,6 @@ public class ThirdPersonShooting : MonoBehaviour
     }
     private void OnEnable()
     {
-        Debug.Log("teraz!");
         rotatePlayer.speed = 20;
         LeftHandRig.weight = 1;
     }

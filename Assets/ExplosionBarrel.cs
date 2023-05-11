@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-public class ExplosionBarrel : MonoBehaviour
+public class ExplosionBarrel : MonoBehaviour, IDamagable
 {
     public float radius;
     public GameObject particles;
@@ -36,5 +36,11 @@ public class ExplosionBarrel : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
+
+    public void Damage(int dmg, WeaponType weaponType = WeaponType.Rifle)
+    {
+        Explode();
     }
 }

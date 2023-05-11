@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerSkinHandle : MonoBehaviour
 {
-    public GameObject[] allSkins;
+    [SerializeField] private GameObject[] allSkins;
 
     private void Start()
     {

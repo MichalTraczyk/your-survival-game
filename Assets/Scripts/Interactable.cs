@@ -17,8 +17,4 @@ public class Interactable : MonoBehaviour
     {
         OnClickEvent.Invoke();
     }
-    public void Test()
-    {
-        Debug.Log("ch0j");
-    }
 }

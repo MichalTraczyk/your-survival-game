@@ -12,31 +12,30 @@ public enum EnemyDifficulity
 }
 public class GameManager : MonoBehaviour
 {
-    public Volume damageVolume;
-    public Volume onDamageVolume;
-
-    public GameObject enemyPrefab;
-    public EnemyBehaviourSO[] easyEnemies;
-    public EnemyBehaviourSO[] normalEnemies;
-    public EnemyBehaviourSO[] hardEnemies;
-
-
-    List<EnemyBehaviourSO> allEnemies = new List<EnemyBehaviourSO>();
-    int playerHp = 5;
-    int currentWave = 1;
     public static GameManager Instance;
-    GameObject PlayerGO;
-    PlayerWeaponHandle weaponHandle;
 
-    public List<Transform> validSpawnpoints = new List<Transform>();
+    [SerializeField] private Volume damageVolume;
+    [SerializeField] private Volume onDamageVolume;
 
-    [SerializeField]
-    List<EnemyBehaviourSO> enemiesQueue = new List<EnemyBehaviourSO>();
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private EnemyBehaviourSO[] easyEnemies;
+    [SerializeField] private EnemyBehaviourSO[] normalEnemies;
+    [SerializeField] private EnemyBehaviourSO[] hardEnemies;
 
-    float time = 0;
-    int spawnedEnemies = 0;
-    bool lost;
-    bool paused;
+
+    private List<EnemyBehaviourSO> allEnemies = new List<EnemyBehaviourSO>();
+    private int playerHp = 5;
+    private int currentWave = 1;
+    private GameObject PlayerGO;
+    private PlayerWeaponHandle weaponHandle;
+
+    [SerializeField] private List<Transform> validSpawnpoints = new List<Transform>();
+    [SerializeField] private List<EnemyBehaviourSO> enemiesQueue = new List<EnemyBehaviourSO>();
+
+    private float time = 0;
+    private int spawnedEnemies = 0;
+    private bool lost;
+    private bool paused;
     //public StarterAssetsInputs input;
 
     private void Awake()
@@ -93,8 +92,8 @@ public class GameManager : MonoBehaviour
         EnemyBehaviour[] zombies = FindObjectsOfType<EnemyBehaviour>();
         foreach (EnemyBehaviour eb in zombies)
         {
-            if(eb.GetComponent<Damagable>() != null)
-                eb.GetComponent<Damagable>().Damage(420);
+            if(eb.GetComponent<IDamagable>() != null)
+                eb.GetComponent<IDamagable>().Damage(420);
 
             AudioSource[] s = eb.GetComponents<AudioSource>();
             foreach (AudioSource a in s)
@@ -192,7 +191,7 @@ public class GameManager : MonoBehaviour
             EnemyBehaviour[] zombies = FindObjectsOfType<EnemyBehaviour>();
             foreach(EnemyBehaviour z in zombies)
             {
-                z.GetComponent<Damagable>().Damage(2137);
+                z.GetComponent<IDamagable>().Damage(2137);
             }
         }
     }

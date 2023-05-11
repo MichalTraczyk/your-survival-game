@@ -11,7 +11,7 @@ public enum ZombieState
     Running,
     Attacking
 }
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour, IDamagable
 {
     //Asignables
     [SerializeField] EnemyBehaviourSO behaviour;
@@ -37,12 +37,13 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] Slider hpSlider;
     //Current zombie state - what is he doing
     public ZombieState state { get; private set;}
+
     [Header("Particle systems")]
-    public ParticleSystem bloodPartcieles;
-    public ParticleSystem ExplosionParticles;
+    [SerializeField] private ParticleSystem bloodPartcieles;
+    [SerializeField] private ParticleSystem ExplosionParticles;
     [Header("Position from where ragdoll force is applied")]
-    [SerializeField] Transform forcePos;
-    public Transform root;
+    [SerializeField] private Transform forcePos;
+    [SerializeField] private Transform root;
 
     [Header("Audio clips")]
     [SerializeField] AudioSource attackAudio;

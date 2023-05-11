@@ -7,27 +7,27 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
     [Header("Main UI")]
-    public GameObject mainUI;
-    public TextMeshProUGUI interactText;
-    public GameObject crossHair;
-    public TextMeshProUGUI hpText;
-    public TextMeshProUGUI weaponNameText;
-    public TextMeshProUGUI magazineAmmoText;
-    public TextMeshProUGUI offMagazineAmmoText;
+    [SerializeField] private GameObject mainUI;
+    [SerializeField] private TextMeshProUGUI interactText;
+    [SerializeField] private GameObject crossHair;
+    [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private TextMeshProUGUI weaponNameText;
+    [SerializeField] private TextMeshProUGUI magazineAmmoText;
+    [SerializeField] private TextMeshProUGUI offMagazineAmmoText;
     [Header("Waves UI")]
-    public GameObject wavesUI;
-    public TextMeshProUGUI currWave;
-    public TextMeshProUGUI enemiesLeft;
+    [SerializeField] private GameObject wavesUI;
+    [SerializeField] private TextMeshProUGUI currWave;
+    [SerializeField] private TextMeshProUGUI enemiesLeft;
 
     [Header("DeathUI")]
-    public GameObject deathUI;
-    public TextMeshProUGUI score;
+    [SerializeField] private GameObject deathUI;
+    [SerializeField] private TextMeshProUGUI score;
 
     [Header("PauseUI")]
-    public Slider soundEffectsSlider;
-    private Animator animator;
+    [SerializeField] private Slider soundEffectsSlider;
+    [SerializeField] private GameObject pauseGO;
 
-    public GameObject pauseGO;
+    private Animator animator;
 
     private void Awake()
     {
